@@ -1,19 +1,19 @@
 interface Produto {
-    id: number;
-    nome: string;
-    quantidade: number;
+    id: number; // Id único em cada Produto, auto incrementado
+    nome: string; // Nome do produto
+    quantidade: number; // Quantidade
 }
 
-const estoqueProduto = new Map<number, Produto>(); // Armazena o Produto e usa o id como chame(number)
+const estoqueProduto = new Map<number, Produto>(); // Armazena o Produto e usa o id como chave(number)
 
-// Contador par gerar id's
+// Contador para gerar id's
 let addId = 1;
 
 // DOM
 // Add Produto
 
 function addProduto(event: Event): void {
-    event.preventDefault(); // Assegura que usuário não recarregue a página 
+    event.preventDefault(); // Assegura que usuário não recarregue a página
 
     const nomeProdutoInput = document.getElementById('NomeProduto') as HTMLInputElement; // armazena o nome do produto na variavel
     const quantidadeProdutoInput = document.getElementById('QuantidadeProduto') as HTMLInputElement;// armazena o quantidade do produto na variavel
@@ -21,7 +21,8 @@ function addProduto(event: Event): void {
     const nome = nomeProdutoInput.value.trim(); // Trim() remove espaços antes ou dps do dado
     const quantidade = parseInt(quantidadeProdutoInput.value.trim()); // defininindo o valor como number
 
-    if (!nome || isNaN(quantidade) || quantidade < 0) {
+    // Válidação da entrada de dados
+    if (!nome || isNaN(quantidade) || quantidade < 0) { // 
         console.error('Erro: Por favor, preencha o Nome do Produto e uma Quantidade válida.')
         return;
     }
@@ -29,18 +30,13 @@ function addProduto(event: Event): void {
     const id = addId;
     addId++;
 
-    // Cria novo produto
-
+    // Cria novo produto e amazena no Map
     const novoProduto: Produto = {id, nome, quantidade};
     estoqueProduto.set(id, novoProduto);
-    console.log(`Produto "${nome}" (ID: ${id}) adicionado com sucesso!`)
 
     // Limpa formulário
     nomeProdutoInput.value = '';
     quantidadeProdutoInput.value = '';
-
-    // atualiza lista de produtos após add
-    
 }
 
 // Busca produtos
@@ -98,16 +94,15 @@ function listaTodosProdutos(): void {
         `;
         produtolistDiv.appendChild(cardProduto);
     });
-    console.log('lista de produtos atualizada.')
 }
 
 // Remover Produto
 function removerProduto(): void {
     const removerProdutoInput = document.getElementById('removerProdutoId') as HTMLInputElement;
-    const removerResultado = document.getElementById('removerResults') as HTMLDivElement;
+    const removerResultado = document.getElementById('removerResultados') as HTMLDivElement;
 
     const idStr = removerProdutoInput.value.trim();
-    const id = parseInt(idStr); // transformando o idStr em int
+    const id = parseInt(idStr); // transformando o idStr em number
 
     if (!idStr || isNaN(id)) {
         console.error('Erro: Por favor, digite um ID numérico de produto para remover.');
@@ -118,7 +113,6 @@ function removerProduto(): void {
     if (estoqueProduto.delete(id)) {
         removerResultado.innerHTML = `<p class="text-green-600">Produto com ID "${id}" removido com sucesso.</p>`;
         removerResultado.classList.remove('hidden');
-        console.log(`Produto com ID "${id}" removido com sucesso.`);
         removerProdutoInput.value = '';
         listaTodosProdutos(); // atualiza lista
     } else {
