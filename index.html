@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque Online</title>
+    <!-- Link para o arquivo CSS de estilos -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link para o script TypeScript compilado (app.js) -->
+    <script src="app.js" defer></script>
+</head>
+<body class="font-inter p-4 flex flex-col items-center min-h-screen">
+    <div class="container shadow-lg rounded-lg p-6 max-w-4xl w-full">
+        <h1 class="text-3xl font-bold text-center text-blue-700 mb-8">Controle de Estoque Online</h1>
+
+        <!-- Seção para Adicionar Produto -->
+        <section class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Adicionar Novo Produto</h2>
+            <form id="addProductForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- O campo ID do Produto foi removido, pois agora é auto-incrementável -->
+                <div>
+                    <label for="productName" class="block text-gray-700 text-sm font-bold mb-2">Nome do Produto:</label>
+                    <input type="text" id="NomeProduto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="" required>
+                </div>
+                <div>
+                    <label for="productQuantity" class="block text-gray-700 text-sm font-bold mb-2">Quantidade:</label>
+                    <input type="number" id="QuantidadeProduto" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="" min="0" required>
+                </div>
+                <div class="md:col-span-2 text-right">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">
+                        Adicionar Produto
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Seção para Buscar Produto -->
+        <section class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Buscar Produto por ID</h2>
+            <div class="flex flex-col md:flex-row gap-4">
+                <input type="text" id="procuraProdutoId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:flex-grow" placeholder="">
+                <button id="searchProductBtn" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out md:flex-shrink-0">
+                    Buscar Produto
+                </button>
+            </div>
+            <div id="resultadosPesquisa" class="mt-4 p-3 bg-white border border-gray-200 rounded text-gray-800 hidden"></div>
+        </section>
+
+        <!-- Seção para Listar Produtos -->
+        <section class="mb-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Listar Todos os Produtos</h2>
+            <button id="listProductsBtn" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out mb-4">
+                Listar Produtos
+            </button>
+            <div id="produtoLista" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                <!-- Produtos serão listados aqui -->
+            </div>
+            <p id="nãotemProduto" class="text-gray-600 text-center mt-4 hidden">Nenhum produto em estoque.</p>
+        </section>
+
+        <!-- Seção para Remover Produto -->
+        <section class="p-6 border border-gray-200 rounded-lg bg-gray-50">
+            <h2 class="text-2xl font-semibold text-blue-600 mb-4">Remover Produto por ID</h2>
+            <div class="flex flex-col md:flex-row gap-4">
+                <input type="text" id="removerProdutoId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:flex-grow" placeholder="">
+                <button id="removeProductBtn" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out md:flex-shrink-0">
+                    Remover Produto
+                </button>
+            </div>
+            <div id="removerResults" class="mt-4 p-3 bg-white border border-gray-200 rounded text-gray-800 hidden"></div>
+        </section>
+    </div>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</body>
+</html>
